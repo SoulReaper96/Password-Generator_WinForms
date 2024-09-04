@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace MyPasswordGenerator
@@ -18,59 +19,39 @@ namespace MyPasswordGenerator
         public int CalculateStrength(string password)
         {
             if (string.IsNullOrEmpty(password))
-            {
                 return 0;
-            }
 
-            int strength = 0;
+            int score = 0;
 
-            //Increase strength for length
-            strength += Math.Min(10 * password.Length, 60);
-
-            if (password.Length == 8)
-            {
-                strength -= 40;
-            }
-            else if(password.Length == 9)
-            {
-                strength -= 35;
-            }
-            else if(password.Length == 10)
-            {
-                strength -= 30;
-            }
-            else if(password.Length == 11)
-            {
-                strength -= 25;
-            }
-            else if (password.Length == 12)
-            {
-                strength -= 20;
-            }
+            // Length
+            if (password.Length >= 8)
+                score += 25;
+            else if (password.Length >= 6)
+                score += 10;
             else
-            {
-                strength += 60;
-            }
+                score += 5;
 
-            //Increase strength for character types
-            if (password.Any(char.IsUpper))
-            {
-                strength += 10;
-            }
-            if (password.Any(char.IsLower))
-            {
-                strength += 10;
-            }
-            if (password.Any(char.IsDigit))
-            {
-                strength += 10;
-            }
-            if (password.Any(ch => "!@#$%^&*()_+-=[]{}|;':\",./<>?".Contains(ch)))
-            {
-                strength += 10;
-            }
+            // Lowercase letters
+            if (Regex.IsMatch(password, @"[a-z]"))
+                score += 15;
 
-            return Math.Min(MaxStrength, strength);
+            // Uppercase letters
+            if (Regex.IsMatch(password, @"[A-Z]"))
+                score += 15;
+
+            // Digits
+            if (Regex.IsMatch(password, @"[0-9]"))
+                score += 20;
+
+            // Special characters
+            if (Regex.IsMatch(password, @"[!@#$%^&*(),.?""{}|<>]"))
+                score += 25;
+
+            // Common patterns or dictionary words (optional)
+            if (ContainsCommonPatterns(password))
+                score -= 20;
+
+            return Math.Min(score, MaxStrength); // Ensure the score does not exceed 100%
         }
 
         /// <summary>
@@ -86,6 +67,43 @@ namespace MyPasswordGenerator
 
             Console.WriteLine($"Password Strength: {strength}%");
             Console.WriteLine($"[{strengthBar}]");
+        }
+
+        private static bool ContainsCommonPatterns(string password)
+        {
+            // This is a simple example. You can expand this list or use a more comprehensive dictionary.
+            string[] commonPatterns = new string[]
+            {
+                "123456", "password", "123456789", "12345678", "12345",
+                "1234567", "1234567890", "qwerty", "abc123", "111111",
+                "123123", "admin", "letmein", "welcome", "monkey",
+                "1234", "1q2w3e4r", "password1", "123qwe", "iloveyou",
+                "sunshine", "football", "123", "000000", "qwerty123",
+                "1qaz2wsx", "qazwsx", "trustno1", "baseball", "dragon",
+                "superman", "123321", "password123", "654321", "1qazxsw2",
+                "master", "michael", "qwertyuiop", "starwars", "123qaz",
+                "hello", "charlie", "aaaaaa", "donald", "letmein123",
+                "flower", "loveyou", "zxcvbnm", "123654", "bismillah",
+                "hunter", "tigger", "shadow", "123abc", "passw0rd",
+                "freedom", "whatever", "q1w2e3r4", "baseball1", "football1",
+                "password2", "1111", "mypass", "asdfgh", "1qaz",
+                "asdf", "pass123", "asdfghjkl", "p@ssw0rd", "login",
+                "batman", "123456a", "zaq12wsx", "password4", "zxcvbn",
+                "google", "qwerty1", "hello123", "welcome1", "football2",
+                "superuser", "11111111", "666666", "summer", "pokemon",
+                "letmein1", "jordan23", "secret", "master123", "1q2w3e",
+                "qwer1234", "password5", "liverpool", "admin123", "golf",
+                "superman1", "michael1", "chocolate", "password6", "starwars1"
+            };
+
+
+            foreach (string pattern in commonPatterns)
+            {
+                if (password.ToLower().Contains(pattern))
+                    return true;
+            }
+
+            return false;
         }
     }
 }
