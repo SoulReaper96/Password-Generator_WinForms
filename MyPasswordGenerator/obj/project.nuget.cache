@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "n+nmok/bACw=",
+  "dgSpecHash": "Dh5e0f/ZxKI=",
   "success": true,
-  "projectFilePath": "G:\\Studies\\MyPasswordGenerator\\MyPasswordGenerator\\MyPasswordGenerator.csproj",
+  "projectFilePath": "G:\\GitHub Repo Cloned\\SoulReaper96\\Password-Generator_WinForms\\MyPasswordGenerator\\MyPasswordGenerator.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Administrator\\.nuget\\packages\\antlr\\3.5.0.2\\antlr.3.5.0.2.nupkg.sha512",
     "C:\\Users\\Administrator\\.nuget\\packages\\expressionevaluator\\2.0.4\\expressionevaluator.2.0.4.nupkg.sha512",
