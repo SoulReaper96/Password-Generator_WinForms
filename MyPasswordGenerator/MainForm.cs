@@ -1,3 +1,5 @@
+using System.Windows.Forms;
+
 namespace MyPasswordGenerator
 {
     public partial class MyPasswordGenerator : Form
@@ -72,6 +74,50 @@ namespace MyPasswordGenerator
         {
             //Clear the password history listbox
             PassListboxHistory.Items.Clear();
+        }
+
+        private void ToolBtnSaveSelected_Click(object sender, EventArgs e)
+        {
+            using (SaveFileDialog saveFileDialog = new SaveFileDialog())
+            {
+                saveFileDialog.Filter = "Text Files (*.txt)|*.txt|All Files (*.*)|*.*";
+                saveFileDialog.DefaultExt = "txt";
+                saveFileDialog.AddExtension = true;
+
+                if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    using (StreamWriter writer = new StreamWriter(saveFileDialog.FileName))
+                    {
+                        foreach (var item in PassListboxHistory.SelectedItems)
+                        {
+                            writer.WriteLine(item.ToString());
+                        }
+                    }
+                    MessageBox.Show("Selected passwords saved successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+        }
+
+        private void ToolBtnSaveAll_Click(object sender, EventArgs e)
+        {
+            using (SaveFileDialog sfd = new SaveFileDialog())
+            {
+                sfd.Filter = "Text Files (*.txt)|*.txt|All Files (*.*)|*.*";
+                sfd.DefaultExt = "txt";
+                sfd.AddExtension = true;
+
+                if (sfd.ShowDialog() == DialogResult.OK)
+                {
+                    using (StreamWriter writer = new StreamWriter(sfd.FileName))
+                    {
+                        foreach (var item in PassListboxHistory.Items)
+                        {
+                            writer.WriteLine(item.ToString());
+                        }
+                    }
+                    MessageBox.Show("Passwords saved successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
         }
     }
 }

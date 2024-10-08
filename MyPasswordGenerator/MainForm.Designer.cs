@@ -42,7 +42,7 @@
             CopyPass_Btn = new Button();
             toolStrip1 = new ToolStrip();
             ToolBtnFile = new ToolStripDropDownButton();
-            ToolBtnSaveAs = new ToolStripMenuItem();
+            ToolBtnSaveAll = new ToolStripMenuItem();
             ToolBtnSettings = new ToolStripDropDownButton();
             ToolBtnClearHistory = new ToolStripMenuItem();
             ToolBtnCloseApp = new ToolStripButton();
@@ -50,6 +50,7 @@
             PassListboxHistory = new ListBox();
             PbarStrength = new ProgressBar();
             lblStrength = new Label();
+            ToolBtnSaveSelected = new ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)PassLength_NumUpDown).BeginInit();
             groupBox1.SuspendLayout();
             toolStrip1.SuspendLayout();
@@ -186,18 +187,19 @@
             // ToolBtnFile
             // 
             ToolBtnFile.DisplayStyle = ToolStripItemDisplayStyle.Text;
-            ToolBtnFile.DropDownItems.AddRange(new ToolStripItem[] { ToolBtnSaveAs });
+            ToolBtnFile.DropDownItems.AddRange(new ToolStripItem[] { ToolBtnSaveAll, ToolBtnSaveSelected });
             ToolBtnFile.Image = (Image)resources.GetObject("ToolBtnFile.Image");
             ToolBtnFile.ImageTransparentColor = Color.Magenta;
             ToolBtnFile.Name = "ToolBtnFile";
             ToolBtnFile.Size = new Size(38, 22);
             ToolBtnFile.Text = "File";
             // 
-            // ToolBtnSaveAs
+            // ToolBtnSaveAll
             // 
-            ToolBtnSaveAs.Name = "ToolBtnSaveAs";
-            ToolBtnSaveAs.Size = new Size(114, 22);
-            ToolBtnSaveAs.Text = "Save As";
+            ToolBtnSaveAll.Name = "ToolBtnSaveAll";
+            ToolBtnSaveAll.Size = new Size(180, 22);
+            ToolBtnSaveAll.Text = "Save All";
+            ToolBtnSaveAll.Click += ToolBtnSaveAll_Click;
             // 
             // ToolBtnSettings
             // 
@@ -212,7 +214,7 @@
             // ToolBtnClearHistory
             // 
             ToolBtnClearHistory.Name = "ToolBtnClearHistory";
-            ToolBtnClearHistory.Size = new Size(142, 22);
+            ToolBtnClearHistory.Size = new Size(180, 22);
             ToolBtnClearHistory.Text = "Clear History";
             ToolBtnClearHistory.Click += ToolBtnClearHistory_Click;
             // 
@@ -261,6 +263,13 @@
             lblStrength.TabIndex = 19;
             lblStrength.Text = "Password Strength: 0%";
             // 
+            // ToolBtnSaveSelected
+            // 
+            ToolBtnSaveSelected.Name = "ToolBtnSaveSelected";
+            ToolBtnSaveSelected.Size = new Size(180, 22);
+            ToolBtnSaveSelected.Text = "Save Selected";
+            ToolBtnSaveSelected.Click += ToolBtnSaveSelected_Click;
+            // 
             // MyPasswordGenerator
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -303,7 +312,7 @@
         private CheckBox Brackets_Chkbox;
         private Label label1;
         private GroupBox groupBox1;
-        private ToolStripMenuItem ToolBtnSaveAs;
+        private ToolStripMenuItem ToolBtnSaveAll;
         private Button CopyPass_Btn;
         private ToolStrip toolStrip1;
         private ToolStripButton ToolBtnCloseApp;
@@ -314,5 +323,6 @@
         private ToolStripDropDownButton ToolBtnFile;
         private ToolStripDropDownButton ToolBtnSettings;
         private ToolStripMenuItem ToolBtnClearHistory;
+        private ToolStripMenuItem ToolBtnSaveSelected;
     }
 }
